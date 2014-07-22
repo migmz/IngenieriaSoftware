@@ -4,21 +4,22 @@
  * and open the template in the editor.
  */
 package Vista;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import Controlador.ConexionBasesdeDatos;
+import Controlador.NullConexionBasesdeDatos;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
-import Controlador.ConexionBasesdeDatos;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileOutputStream;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
@@ -30,6 +31,7 @@ import javax.swing.JOptionPane;
 public class JFPrincipal extends javax.swing.JFrame {
 
     ConexionBasesdeDatos conexion;
+    NullConexionBasesdeDatos conexionnull;
      private int x = 0;   //Variable para tomar el valor de la coordenada X de la ventana Servidor
     private int y = 0;   //Variable para tomar el valor de la coordenada Y de la ventana Servidor
 
@@ -38,7 +40,11 @@ public class JFPrincipal extends javax.swing.JFrame {
      */
     public JFPrincipal() {
         initComponents();
-        conexion = new ConexionBasesdeDatos();
+        conexionnull=new NullConexionBasesdeDatos();
+        
+        conexion=conexionnull.funcion();
+        
+        
         File archivo=new File("C:\\Documentos Empresa");
         archivo.mkdir();
         archivo=new File("C:\\Documentos Empresa\\FACTURAS");
@@ -281,7 +287,9 @@ public class JFPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        
+        conexion = new ConexionBasesdeDatos();
+        
         String usuario = txtusuario.getText();
         String clave = txtclave.getText();
 
