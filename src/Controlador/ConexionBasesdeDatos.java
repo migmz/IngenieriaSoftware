@@ -19,9 +19,6 @@ import javax.swing.JOptionPane;
  */
 public class ConexionBasesdeDatos {
     
-    
-    
-    
     Connection conexion;
     Statement exe;
     ResultSet consulta;
