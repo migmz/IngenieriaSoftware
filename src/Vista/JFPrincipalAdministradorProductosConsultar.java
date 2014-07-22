@@ -7,6 +7,7 @@
 package Vista;
 
 import Controlador.ConexionBasesdeDatos;
+import Modelo.Administrador;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
@@ -16,6 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class JFPrincipalAdministradorProductosConsultar extends javax.swing.JInternalFrame {
 ConexionBasesdeDatos conexion;
+    Administrador admin;
     /**
      * Creates new form JFPrincipalAdministradorProductosConsultar
      */
@@ -24,9 +26,12 @@ ConexionBasesdeDatos conexion;
         this.closable=true;
         this.iconable=true;
         this.conexion=conexion;
+        admin=new Administrador(conexion,numero);
+        
         if(numero!=0){
             try{
-                ResultSet info=conexion.consultarconcondicion("PRODUCTO","prod_nombre,prod_precio,prod_serial,prod_color,prod_modelo,prod_material", "prod_id = "+numero+"");
+                ResultSet info=admin.modificarproducto(conexion,numero);
+                        
                     info.next();
 
                     txtnombre.setText(info.getString(1));

@@ -7,6 +7,7 @@
 package Vista;
 
 import Controlador.ConexionBasesdeDatos;
+import Modelo.Empleado;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
@@ -240,11 +241,12 @@ ConexionBasesdeDatos conexion;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnconsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconsultarActionPerformed
-
+Empleado emplea=new Empleado(conexion,Integer.parseInt(txtid.getText()));
+        
          try{
           if(conexion.consultarexistencia("PRODUCTO","prod_nombre", "prod_id","'"+ txtid.getText().trim()+"'")){
           
-        ResultSet info=conexion.consultarconcondicion("PRODUCTO","prod_nombre,prod_precio,prod_serial,prod_color,prod_modelo,prod_material", "prod_id = "+txtid.getText()+"");
+        ResultSet info=emplea.modificarproducto(conexion, Integer.parseInt(txtid.getText()));
         info.next();
              
         txtnombre.setText(info.getString(1));

@@ -6,6 +6,12 @@
 
 package Modelo;
 
+import Controlador.ConexionBasesdeDatos;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import sun.util.calendar.LocalGregorianCalendar.Date;
 
 /**
@@ -19,11 +25,13 @@ public class Empleado extends PERSONA{
         super(Id, Nombre, Apellidos, Genero, Clave, Cedula);
         this.FechaIngreso = FechaIngreso;
     }
-    
-    public Empleado() {
-        super();
+
+    public Empleado( ConexionBasesdeDatos conexion,int numero) {
+        super(conexion,numero);
         
     }
+    
+    
     public Date getFechaIngreso() {
         return FechaIngreso;
     }
@@ -31,6 +39,19 @@ public class Empleado extends PERSONA{
     public void setFechaIngreso(Date FechaIngreso) {
         this.FechaIngreso = FechaIngreso;
     }
+
+    @Override
+    public ResultSet modificarproducto(ConexionBasesdeDatos conexion,int numero) {
+        ResultSet datos=null;
+        try {
+            datos = conexion.consultarconcondicion("PRODUCTO","prod_nombre,prod_precio,prod_serial,prod_color,prod_modelo,prod_material", "prod_id = "+numero+"");
+        } catch (SQLException ex) {
+            Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return datos;
+    }
+
+   
             
     
 }
