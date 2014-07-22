@@ -1,0 +1,64 @@
+create table PRODUCTO(
+prod_id int not null primary key,
+prod_nombre varchar(20) not null,
+prod_precio bigint not null,
+prod_serial varchar(40) not null,
+prod_color varchar(10) not null,
+prod_modelo varchar(15) not null,
+prod_material varchar(15) not null
+);
+
+create table TIPO_PERSONA(
+tipo_id int  not null primary key,
+tipo_descripcion varchar(20) not null
+);
+
+
+create table FACTURA(
+fact_id int  not null primary key,
+fact_fecha date not null,
+fact_cliente varchar(20) null,
+fact_valor bigint not null
+);
+
+create table PERSONA(
+pers_id int not null primary  key,
+pers_cedula bigint not null,
+pers_nombre varchar(20) not null,
+pers_apellido1 varchar(10) not null,
+pers_apellido2 varchar(10) not null,
+pers_genero varchar(2) not null,
+pers_fecha date not null,
+pers_clave varchar(20) not null,
+tipo_id int not null,
+FOREIGN KEY (tipo_id)  REFERENCES TIPO_PERSONA(tipo_id)
+);
+
+create table INVENTARIO(
+prod_id int not null,
+pers_id int not null,
+inve_cantidad int not null,
+inve_fecha date not null,
+FOREIGN KEY (prod_id)  REFERENCES PRODUCTO(prod_id),
+FOREIGN KEY (pers_id)  REFERENCES PERSONA(pers_id)
+);
+
+create table VENTA(
+venta_cantidad int not null,
+prod_id int not null,
+pers_id int not null,
+fact_id int not null,
+FOREIGN KEY (prod_id)  REFERENCES PRODUCTO(prod_id),
+FOREIGN KEY (pers_id)  REFERENCES PERSONA(pers_id),
+FOREIGN KEY (fact_id)  REFERENCES FACTURA(fact_id)
+);
+
+insert into TIPO_PERSONA values(1,'SUPER ADMIN');
+insert into TIPO_PERSONA values(2,'ADMIN');
+insert into TIPO_PERSONA values(3,'EMPLEADO');
+
+
+
+insert into PERSONA values(1,100,'Miguel','Gomez','Duarte','M','05/05/2014','mig',1);
+insert into PERSONA values(2,200,'Alejandra','Quintero','Espinosa','F','05/05/2014','ale',2);
+insert into PERSONA values(3,300,'Michael','Valencia','Ramirez','M','05/05/2014','mic',3);
